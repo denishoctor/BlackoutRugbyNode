@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title><%= title %></title>
+        <link href="/stylesheets/style.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body id="index" class="home">
+
+        <header id="banner" class="body">
+	    <h1><a href="/"><%= title %></a></h1>
+
+	    <nav>
+	            <ul>
+                    <li class="active"><a href="/">Home</a></li>
+                    <!-- 
+		            <li><a href="#">docs</a></li>
+		            <li><a href="#">contact</a></li>
+		            <li><a href="#">about</a></li>
+		    -->
+	            </ul>
+	    </nav>
+        </header>
+
+        <%- body %>
+
+	    <footer id="contentinfo" class="body content">
+	        <section>
+	            <h3>Contribute</h3>
+	            <p>See something you could do better or have an idea for us? Get in touch now and help us move Blackout Rugby forward.</p>
+	        </section>
+	    </footer>
+
+    </body>
+</html>

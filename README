@@ -1,0 +1,7 @@
+A simple POC accessing the Blackout Rugby API.
+
+Build on;
+
+    node.js platform
+    expressjs framework
+    ejs view templates

@@ -1,0 +1,13 @@
+<article class="body content">
+    <h1><%= title %></h1>
+    <p><strong>Encrypted Response URI:</strong> <a href="http://api.blackoutrugby.com<%= result.encryptedUri %>">http://api.blackoutrugby.com<%= result.encryptedUri %></a></p>
+    <div>
+        <strong>Encrypted Response:</strong>
+        <code><%= result.encrypted %></code>
+    </div>
+    <p><strong>Plain Response URI:</strong> <a href="http://api.blackoutrugby.com<%= result.plainUri %>">http://api.blackoutrugby.com<%= result.plainUri %></a></p>
+    <div>
+        <strong>Plain Response:</strong>
+        <code><%= result.plain %></code>
+    </div>
+</article>

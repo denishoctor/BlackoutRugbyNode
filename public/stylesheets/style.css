@@ -1,0 +1,82 @@
+/*****************************************************/
+/*  Base                                             */
+/*****************************************************/
+html{height:100%;overflow-y:scroll;}
+body{height:100%;color:#333;line-height:1.4;font-size:90%;}
+body, input, button, textarea, select,
+h1, h2, h3, h4, h5, h6{font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;letter-spacing:.05em;}
+pre, tt, code, kbd, samp, var{font-family: "Courier New", Courier, monospace;}
+h1{font-size:1.6em;margin:0 0 12px;padding:0;}
+h2{font-size:1.4em;}
+h3{font-size:1.3em;}
+h4{font-size:1.2em;}
+h5{font-size:1.1em;}
+h6{font-size:1em;}
+h1, h2, h3, h4, h5{font-weight:normal;}
+a{color:#4183C4;}
+a:hover{text-decoration:none;}
+a:focus{text-decoration:none;}
+a:focus{outline:1px dotted #000;}
+a{outline:none;color:#4183C4;}
+body, dl, dt, dd, ul, ol, li, h2, h3, h4, h5, h6,
+pre, code, form, fieldset, legend, input, button, textarea, blockquote, th, td{margin:0;padding:0;}
+blockquote, q, em, cite, dfn, i, cite, var, address{font-style:italic;}
+fieldset, img{border:0;}
+img {vertical-align:bottom;}
+sub{vertical-align:sub;font-size:smaller;}
+sup{vertical-align:super;font-size:smaller;}
+legend{padding-bottom:.5em;}
+table{border-collapse:collapse;border-spacing:0;}
+select{margin:0;}
+p{margin:0 0 12px;padding:0;}
+/* enable html elements */
+header, section, footer, aside, nav, article, figure{display:block;}
+
+/*****************************************************/
+/*  Site                                             */
+/*****************************************************/
+body{background-color:#F5F4EF;color:#000305;}
+.body{clear:both;margin:0 auto;width:800px;}
+
+.content{background-color:#FFFFFF;margin-bottom:2em;overflow:hidden;padding:20px;width:760px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+}
+#banner h1{margin-top:18px;}
+#banner h1 a{color:#C74451;font-size:38px;font-weight:900;text-decoration:none;}
+#banner nav{background-color:#000305;font-size:1.143em;height:40px;line-height:30px;margin:0 auto 2em;padding:0;text-align:center;width:800px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+}
+
+#banner nav ul{list-style:none;margin:0 auto;width:800px;}
+#banner nav li{display:inline;float:left;margin:0;}
+#banner nav a:hover, #banner nav a:active, #banner nav .active a:link, #banner nav .active a:visited{background-color:#C74451;color:#FFFFFF;}
+#banner nav li:first-child a {
+    -moz-border-radius:5px 0 0 5px;
+    border-radius:5px 0 0 5px;
+}
+#banner nav a{color:#FFFFFF;display:inline-block;height:30px;padding:5px 1.5em;text-decoration:none;}
+
+#requestForm{background-color:#EDEDED;list-style:none;margin:12px auto;padding:12px 0px 18px;width:400px;
+            -moz-border-radius:5px;
+            border-radius:5px;
+}
+    #requestForm li{height:1%;overflow:hidden;padding:9px 2px 3px;width:360px;}
+        #requestForm label{display:block;float:left;margin:4px 24px 0 0;text-align:right;width:120px;}
+        #requestForm input[type="text"]{border:2px solid #DAE5ED;float:left;padding:6px;width:200px;}
+        #requestForm input[type="text"]:focus{border-color:#BBB;background-color:#FFFFCC;}
+        #requestForm input[type="submit"]{background-color:#5590D2;border:none;color:#FFFFFF;float:right;font-size:14px;font-weight:900;height:32px;line-height:32px;padding:0 12px;
+            -moz-border-radius:5px;
+            border-radius:5px;
+        }
+        #requestForm input[type="submit"]:hover{background-color:#bedbf7;cursor:pointer;}
+            
+#contentinfo{}
+    #contentinfo h3{margin-bottom:6px;}
+    #contentinfo section:first-child{margin-right:24px;}
+    #contentinfo section{float:left;width:48%;}
+    
+.noteList{padding:24px; margin-left:36px;}
+    .first{}
+    .second{list-style-type:circle;margin-left:24px;}
