@@ -1,4 +1,5 @@
-var crypto = require('crypto');
+var crypto = require('crypto'),
+    cryptoHelpers = require('cryptoHelpers');
 
 var data = "f7a7a7e21ec1cf2d526ef5f8f9bd8e191b3c11f4";
 
@@ -24,4 +25,5 @@ for (var i = 0;i < cipherChunks.length;i++) {
 
 }
 plainChunks.push(decipher.final(clearEncoding));
+console.log("Base64 deciphered: 		" + cryptoHelpers.base64.encode(encryptedRequest));
 console.log("UTF8 plaintext deciphered: 	" + plainChunks.join(''));

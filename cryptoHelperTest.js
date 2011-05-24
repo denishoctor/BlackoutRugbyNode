@@ -1,10 +1,10 @@
-// Module dependencies
-var http = require('http'),
-    express = require('express'),
-    crypto = require('crypto');
+var cryptoHelpers = require('cryptoHelpers');
 
+var test = cryptoHelpers.base64.encode('test');
 
-
+console.log('cryptoHelpers')
+console.log('Encoded: ' + test);
+console.log('Decoded: ' + cryptoHelpers.base64.decode(test) + '\n\n\n');
 
 var Base64 = {
 
@@ -142,79 +142,10 @@ _utf8_decode : function (utftext) {
 
 }
 
+console.log('Base64')
+console.log('Encoded: ' + Base64.encode('test'));
+console.log('Decoded: ' + Base64.decode(Base64.encode('test')) + '\n\n\n');
 
 
 
 
-  
-var app = module.exports = express.createServer(),
-    blackoutAPI = http.createClient(80, 'http://api.blackoutrugby.com');
-
-// Configuration
-app.configure(function(){
-    app.set('views', __dirname + '/views');
-    app.set('view engine', 'ejs');
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(app.router);
-    app.use(express.static(__dirname + '/public'));
-});
-
-app.configure('development', function(){
-    app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
-});
-
-app.configure('production', function(){
-    app.use(express.errorHandler()); 
-});
-
-app.use(express.bodyParser());
-
-// Routes
-
-app.get('/binary/:message', function(req, res){
-	var result = cryptoTest(req.params.message, 'GO8FzK17iPYKE2Kt', 'E2I51NEwsC3RdSNl', 'binary');
-	res.send(req.params.message + 
-		' <br/><br/> ' + 
-		result.encrypted + 
-		' <br/><br/> ' + 
-		result.decrypted + 
-		' <br/><br/> ' + 
-		'<a href="http://api.blackoutrugby.com/?d=19&er=' + result.encrypted + '">http://api.blackoutrugby.com/?d=19&er=' + result.encrypted + '</a>');
-});
-
-app.get('/base64/:message', function(req, res){
-	var result = cryptoTest(req.params.message, 'GO8FzK17iPYKE2Kt', 'E2I51NEwsC3RdSNl', 'base64');
-	res.send(req.params.message + 
-		' <br/><br/> ' + 
-		result.encrypted + 
-		' <br/><br/> ' + 
-		result.decrypted + 
-		' <br/><br/> ' + 
-		'<a href="http://api.blackoutrugby.com/?d=19&er=' + result.encrypted + '">http://api.blackoutrugby.com/?d=19&er=' + result.encrypted + '</a>');
-});
-
-function cryptoTest(data, key, iv, format) {
-	var cipher = crypto.createCipheriv('aes-128-cbc', key, iv);
-	var cipherChunks = [];
-	cipherChunks.push(cipher.update(data, 'utf8', format));
-	cipherChunks.push(cipher.final());
-	
-	var decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
-	var plainChunks = [];
-	for (var i = 0;i < cipherChunks.length;i++) {
-	  plainChunks.push(decipher.update(cipherChunks[i], format, 'utf8'));
-	}
-	plainChunks.push(decipher.final());
-
-	return {
-		"encrypted": Base64.encode(cipherChunks.join('')),
-		"decrypted": plainChunks.join('')
-	};
-}
-
-// Only listen on $ node app.js
-if (!module.parent) {
-    app.listen(3000);
-    console.log("Express server listening on port %d", app.address().port);
-}
