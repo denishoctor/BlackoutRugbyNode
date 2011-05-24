@@ -30,12 +30,24 @@ app.use(express.bodyParser());
 
 app.get('/binary/:message', function(req, res){
 	var result = cryptoTest(req.params.message, 'NO2FzK17iDEKY2Kt', 'S8I15NEwsC7RdSNl', 'binary');
-	res.send(req.params.message + ' <br/><br/> ' + result.encrypted + ' <br/><br/> ' + result.decrypted);
+	res.send(req.params.message + 
+		' <br/><br/> ' + 
+		result.encrypted + 
+		' <br/><br/> ' + 
+		result.decrypted + 
+		' <br/><br/> ' + 
+		'<a href="http://api.blackoutrugby.com/?d=10&er=' + result.encrypted + '">http://api.blackoutrugby.com/?d=19&er=' + result.encrypted + '</a>');
 });
 
 app.get('/base64/:message', function(req, res){
 	var result = cryptoTest(req.params.message, 'NO2FzK17iDEKY2Kt', 'S8I15NEwsC7RdSNl', 'base64');
-	res.send(req.params.message + ' <br/><br/> ' + result.encrypted + ' <br/><br/> ' + result.decrypted);
+	res.send(req.params.message + 
+		' <br/><br/> ' + 
+		result.encrypted + 
+		' <br/><br/> ' + 
+		result.decrypted + 
+		' <br/><br/> ' + 
+		'<a href="http://api.blackoutrugby.com/?d=10&er=' + result.encrypted + '">http://api.blackoutrugby.com/?d=19&er=' + result.encrypted + '</a>');
 });
 
 function cryptoTest(data, key, iv, format) {
