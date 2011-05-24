@@ -3,7 +3,8 @@ var http = require('http'),
     express = require('express'),
     slowAES = require('slowAES'),
     cryptoHelpers = require('cryptoHelpers'),
-    jsHash = require('jsHash');
+    jsHash = require('jsHash'),
+    crypto = require('crypto');
     
 var app = module.exports = express.createServer(),
     blackoutAPI = http.createClient(80, 'http://api.blackoutrugby.com');
@@ -45,13 +46,19 @@ app.post('/', function(req, res) {
 });
 
 function apiRequest(reqBody, callback) {
-    var result = encryptRequest(reqBody.requestParams, reqBody.devKey, reqBody.devIV, reqBody.devID, reqBody.memberAccess),
+    var result = aesslowRequest(reqBody.requestParams, reqBody.devKey, reqBody.devIV, reqBody.devID, reqBody.memberAccess),
+        result2 = cryptoRequest(reqBody.requestParams, reqBody.devKey, reqBody.devIV, reqBody.devID, reqBody.memberAccess);
+    
+    /*
+    
+    console.log(result.plainUri);
+    console.log(result.encryptedUri);
         options = {
             host: 'api.blackoutrugby.com',
             port: 80,
             path: result.encryptedUri
         };
-    
+        
     var apiRequest = http.get(options, function(apiResponse) {
         apiResponse.addListener("data", function(data) {
             result.encrypted += data;
@@ -62,16 +69,39 @@ function apiRequest(reqBody, callback) {
         });
     });
     apiRequest.end();
+    */
 }
 
-function encryptRequest(request, key, iv, devid, memberAccess) {
+
+
+function cryptoRequest(request, key, iv, devId, memberAccess) {
+	var cipher = crypto.createCipheriv('AES-128-CBC', key, iv);
+	
+	request = memberAccess + request;
+	
+	request += (16 - request.length % 16) * 0;
+	
+	var encrypted  = cipher.update(request, input_encoding='utf8', output_encoding='base64');
+	console.log('http://api.blackoutrugby.com/?d=' + devId + '&er=' + encrypted + '\n\n\n');
+	cipherFinal = cipher.final(output_encoding='binary');
+	console.log(cipherFinal);
+	
+	var decipher = crypto.createDecipheriv('AES-128-CBC', key, iv);
+	
+	var decrypted = decipher.update(encrypted, input_encoding='base64', output_encoding='utf8');
+	
+	console.log(decrypted);
+	console.log(request);
+}
+
+function aesslowRequest(request, key, iv, devid, memberAccess) {
     /*
      * Blackout Rugby API requires AES in CBC mode with zero padding, finally encoded in base64
      */
-     // TODO: Unsure of the padding. Is it needed or does slowAES look after it?
+    // TODO: Unsure of the padding. Is it needed or does slowAES look after it?
     var byteArrayKey = cryptoHelpers.convertStringToByteArray(key),
         byteArrayiv = cryptoHelpers.convertStringToByteArray(iv),        
-        byteArrayRequest = cryptoHelpers.convertStringToByteArray(request + '&'),    
+        byteArrayRequest = cryptoHelpers.convertStringToByteArray(request + '&'),
         
         encryptedRequest = slowAES.encrypt(byteArrayRequest, 
             slowAES.modeOfOperation.CBC,
@@ -81,12 +111,10 @@ function encryptRequest(request, key, iv, devid, memberAccess) {
     
     base64EncryptedRequest = cryptoHelpers.base64.encode(encryptedRequest);
 
-    var result = {
+    return {
         encryptedUri: "/?d=" + devid + "&er=" + base64EncryptedRequest,
         plainUri: "/?d=" + devid + "&dk=" + key + '&' + memberAccess + '&' + request
     };
-
-    return result;
 }
 
 // Only listen on $ node app.js
